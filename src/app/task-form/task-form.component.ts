@@ -83,21 +83,18 @@ export class TaskFormComponent implements OnInit {
         //   }
         // });
 
-        console.log(taskData)
 
       } else {
 
-        // this.taskDataService.addTask(taskData).subscribe({
-        //   next: (response) => {
-        //     console.log('Task added', response);
-        //     this.dialogRef.close(response.result);
-        //   },
-        //   error: (error) => {
-        //     console.error('Error adding task', error);
-        //   }
-        // });
-
-        console.log(taskData)
+        this.taskDataService.addTask(taskData).subscribe({
+          next: (response) => {
+            console.log('Task added', response);
+            this.dialogRef.close(response.result);
+          },
+          error: (error) => {
+            console.error('Error adding task', error);
+          }
+        });
 
 
       }
@@ -108,7 +105,10 @@ export class TaskFormComponent implements OnInit {
 
   }
 
-  async handleDelete():Promise<void> {
+   handleDelete(id:string):void {
+
+    
+    
     this.dialogRef.close({ action: 'delete', task: this.initialTask });
   }
 

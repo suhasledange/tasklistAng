@@ -51,7 +51,7 @@
     </div>
     <div class="flex justify-between">
       <div>
-        <button *ngIf="initialTask._id" type="button" (click)="handleDelete()" class="md:px-8 px-5 py-2 active:scale-95 bg-red-600 text-white rounded-sm flex items-center justify-center gap-2">Delete</button>
+        <button *ngIf="initialTask._id" type="button" (click)="handleDelete(initialTask._id)" class="md:px-8 px-5 py-2 active:scale-95 bg-red-600 text-white rounded-sm flex items-center justify-center gap-2">Delete</button>
       </div>
       <div class="flex items-center">
         <button (click)="onClose()" type="button" class="mr-4 border border-slate-500 md:px-8 px-5 py-2 rounded-sm">Cancel</button>

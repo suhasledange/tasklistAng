@@ -12,6 +12,7 @@ import { TaskFormComponent } from '../task-form/task-form.component';
 import { Task } from '../services/task-data.service';
 import { DateformatPipe } from '../pipes/dateformat.pipe';
 import { MatMenuModule} from '@angular/material/menu';
+import { TruncatePipe } from '../pipes/truncate.pipe';
 
 @Component({
   selector: 'app-sales-log-table',
@@ -26,7 +27,8 @@ import { MatMenuModule} from '@angular/material/menu';
     MatButtonModule,
     MatIconModule,
     FormsModule,
-    DateformatPipe
+    DateformatPipe,
+    TruncatePipe
   ],
   templateUrl: './sales-log-table.component.html',
   styleUrls: ['./sales-log-table.component.css']

@@ -29,7 +29,7 @@
   
         <ng-container matColumnDef="entityName">
           <th  class="text-gray-500" mat-header-cell *matHeaderCellDef mat-sort-header>Entity Name</th>
-          <td class="text-blue whitespace-break-spaces inline-block font-medium w-[15rem] " mat-cell *matCellDef="let task">{{ task.entityName }}</td>
+          <td class="text-blue whitespace-break-spaces font-medium w-[15rem] " mat-cell *matCellDef="let task">{{ task.entityName }}</td>
         </ng-container>
   
         <ng-container matColumnDef="taskType">
@@ -58,7 +58,7 @@
   
         <ng-container matColumnDef="notes">
           <th  class="text-gray-500" mat-header-cell *matHeaderCellDef mat-sort-header>Notes</th>
-          <td mat-cell *matCellDef="let task" class=" whitespace-break-spaces w-[20rem] inline-block">{{ task.note }}</td>
+          <td mat-cell *matCellDef="let task" class=" whitespace-break-spaces w-[20rem]">{{ task.note | truncate:40 }}</td>
         </ng-container>
   
         <ng-container matColumnDef="status">

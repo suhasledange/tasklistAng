@@ -1,0 +1,72 @@
+<div class="mat-elevation-z8">
+    <div class="mb-4 p-4  px-6 flex md:flex-row flex-col space-y-3 md:space-y-0 md:items-center justify-between w-full bg-gray-200">
+        <div class=" flex items-center justify-start gap-4 md:gap-10">
+            <span class="text-md font-semibold uppercase tracking-wider">Sales Log</span>
+            <button (click)="openTaskForm()" class="active:scale-95 text-blue border-2 text-sm font-medium border-gray-500 p-1 px-3 flex items-center justify-center gap-2"><mat-icon fontIcon="add"></mat-icon>  New Task</button>
+        </div>
+    
+      <div class="relative filter-container md:w-[50%]">
+        <input class="w-full rounded-md p-2 px-8 outline-none" matInput (keyup)="applyFilter($event)" placeholder="Search Entity Name,Contact Person & Notes ">
+        <mat-icon class=" absolute left-[0.36rem] text-gray-400 top-2" fontIcon="search"></mat-icon>
+      </div>
+
+    </div>
+  
+    <div class="table-container h-[28rem] overflow-x-auto p-2">
+
+        <div class="text-sm p-4 py-3">
+
+            <span class=" flex items-center justify-start gap-1">Use the icon<mat-icon class="text-lg -mr-2 text-gray-700" fontIcon="filter_alt"></mat-icon>next to the table titles to apply filters</span>
+            
+        </div>
+
+      <table mat-table [dataSource]="dataSource" matSort>
+  
+        <ng-container matColumnDef="date">
+          <th class="text-gray-500" mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
+          <td mat-cell *matCellDef="let task">{{ task.createdAt | dateformat }}</td>
+        </ng-container>
+  
+        <ng-container matColumnDef="entityName">
+          <th  class="text-gray-500" mat-header-cell *matHeaderCellDef mat-sort-header>Entity Name</th>
+          <td class="text-blue font-medium w-[14rem] block " mat-cell *matCellDef="let task">{{ task.entityName }}</td>
+        </ng-container>
+  
+        <ng-container matColumnDef="taskType">
+          <th class=" whitespace-nowrap text-gray-500" mat-header-cell *matHeaderCellDef mat-sort-header>Task Type</th>
+          <td class=" whitespace-nowrap" mat-cell *matCellDef="let task">{{ task.taskType }}</td>
+        </ng-container>
+  
+        <ng-container matColumnDef="time">
+          <th  class="text-gray-500" mat-header-cell *matHeaderCellDef mat-sort-header>Time</th>
+          <td mat-cell *matCellDef="let task">{{ task.time }}</td>
+        </ng-container>
+  
+        <ng-container matColumnDef="contactPerson">
+          <th  class=" whitespace-nowrap text-gray-500" mat-header-cell *matHeaderCellDef mat-sort-header>Contact Person</th>
+          <td mat-cell *matCellDef="let task">{{ task.contactPerson }}</td>
+        </ng-container>
+  
+        <ng-container matColumnDef="notes">
+          <th  class="text-gray-500" mat-header-cell *matHeaderCellDef mat-sort-header>Notes</th>
+          <td mat-cell *matCellDef="let task" class=" whitespace-break-spaces w-[15rem] inline-block">{{ task.note }}</td>
+        </ng-container>
+  
+        <ng-container matColumnDef="status">
+          <th  class="text-gray-500" mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+          <td mat-cell *matCellDef="let task">
+            <div class="flex items-center justify-between gap-5 relative">
+                <span class="text-red-700 decoration-dotted underline underline-offset-4">{{ task.status }}</span> 
+                <button class=" bg-gray-100 p-1 px-3 flex items-center justify-center" (click)="openDialog(task)">Options <mat-icon class="text-gray-700" fontIcon="expand_more"></mat-icon> </button>
+            </div>
+          </td>
+
+        </ng-container>
+  
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+  
+    </div>
+  
+  </div>

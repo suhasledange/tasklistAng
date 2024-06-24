@@ -27,4 +27,17 @@ export class TaskDataService {
   getTasks(): Observable<{ result: Task[] }> {
     return this.http.get<{ result: Task[] }>(this.apiUrl);
   }
+
+  addTask(task: Task): Observable<{ result: Task }> {
+    return this.http.post<{ result: Task }>(this.apiUrl, task);
+  }
+
+  updateTask(id: string, task: Task): Observable<{ result: Task }> {
+    return this.http.put<{ result: Task }>(`${this.apiUrl}/${id}`, task);
+  }
+
+  deleteTask(id: string): Observable<{ result: Task }> {
+    return this.http.delete<{ result: Task }>(`${this.apiUrl}/${id}`);
+  }
+
 }

@@ -74,8 +74,6 @@ export class SalesLogTableComponent implements OnInit {
       console.log('change status',task)
     }
 
-    
-  
   }
 
  

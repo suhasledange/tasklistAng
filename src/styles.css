@@ -18,3 +18,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 ::-webkit-scrollbar-track {
     background-color: #d2d2d2;
 }
+
+ .mat-mdc-dialog-container {
+    --mdc-dialog-container-shape: 1px;
+  }
+
+ 

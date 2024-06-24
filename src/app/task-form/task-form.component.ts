@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { CommonModule, DatePipe } from '@angular/common';
 import { NgClass } from '@angular/common';
-
+import { MatIconModule } from '@angular/material/icon';
 @Component({
   selector: 'app-task-form',
   standalone: true,
@@ -11,6 +11,7 @@ import { NgClass } from '@angular/common';
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    MatIconModule,
     NgClass 
   ],
   templateUrl: './task-form.component.html',

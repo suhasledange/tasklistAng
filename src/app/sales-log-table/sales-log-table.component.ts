@@ -8,11 +8,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { TaskOptionsDialogComponent } from '../task-options-dialog/task-options-dialog.component';
 import { TaskFormComponent } from '../task-form/task-form.component';
 import { Task } from '../services/task-data.service';
 import { DateformatPipe } from '../pipes/dateformat.pipe';
-
+import { MatMenuModule} from '@angular/material/menu';
 
 @Component({
   selector: 'app-sales-log-table',
@@ -22,11 +21,11 @@ import { DateformatPipe } from '../pipes/dateformat.pipe';
     MatTableModule,
     MatSortModule,
     MatPaginatorModule,
+    MatMenuModule,
     MatInputModule,
     MatButtonModule,
     MatIconModule,
     FormsModule,
-    TaskOptionsDialogComponent,
     DateformatPipe
   ],
   templateUrl: './sales-log-table.component.html',
@@ -61,29 +60,28 @@ export class SalesLogTableComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  openDialog(task: Task) {
-    const dialogRef = this.dialog.open(TaskOptionsDialogComponent, {
-      data: task,
+  onOptionEdit(task:any,option:string): void {
+  
+    if(option === 'edit'){
 
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      if (result === 'edit') {
-        // Handle edit action
-        this.openTaskForm(task); 
+        this.openTaskForm(task);
 
-      } else if (result === 'duplicate') {
-        // Handle duplicate action
-        console.log("duplicate",task);
-      } else if (result === 'changeStatus') {
-        // Handle change status to open action
-        console.log("change",task);
-      }
-    });
+    }
+    else if(option ==='duplicate'){
+      console.log("duplicate",task)
+    }
+    else{
+      console.log('change status',task)
+    }
 
-}
+    
+  
+  }
+
+ 
 openTaskForm(task?:Task): void {
   const dialogRef = this.dialog.open(TaskFormComponent, {
-    data:task
+    data:task,
   });
 
   dialogRef.afterClosed().subscribe(result => {

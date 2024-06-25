@@ -30,13 +30,21 @@ import { ToolTipComponent } from '../tool-tip/tool-tip.component';
     FormsModule,
     DateformatPipe,
     TruncatePipe,
-    ToolTipComponent
+    ToolTipComponent,
   ],
   templateUrl: './sales-log-table.component.html',
-  styleUrls: ['./sales-log-table.component.css']
+  styleUrls: ['./sales-log-table.component.css'],
 })
 export class SalesLogTableComponent implements OnInit {
-  displayedColumns: string[] = ['date', 'entityName', 'taskType', 'time', 'contactPerson', 'notes', 'status'];
+  displayedColumns: string[] = [
+    'date',
+    'entityName',
+    'taskType',
+    'time',
+    'contactPerson',
+    'notes',
+    'status',
+  ];
   dataSource: MatTableDataSource<Task> = new MatTableDataSource();
 
   @ViewChild(MatSort) sort!: MatSort;
@@ -44,17 +52,26 @@ export class SalesLogTableComponent implements OnInit {
 
   tasks: Task[] = [];
 
-// tooltip start
+  constructor(
+    private dialog: MatDialog,
+    private taskService: TaskDataService
+  ) {}
+
+  ngOnInit(): void {
+    this.loadTask();
+  }
+
+  // tooltip start
 
   tooltipVisible = false;
   tooltipTop = '0px';
   tooltipLeft = '0px';
-  leftpos:number=-230;
-  status:string = ""
+  leftpos: number = -230;
+  status: string = '';
   showTooltip(event: MouseEvent, task: any) {
     this.tooltipVisible = true;
     this.tooltipTop = `${event.clientY}px`;
-    this.leftpos +=event.clientX;
+    this.leftpos += event.clientX;
     this.tooltipLeft = `${this.leftpos}px`;
     this.status = task.status;
   }
@@ -64,15 +81,7 @@ export class SalesLogTableComponent implements OnInit {
     this.leftpos = -230;
   }
 
-// tooltip end
-
-
-
-  constructor(private dialog: MatDialog, private taskService: TaskDataService) { }
-
-  ngOnInit(): void {
-    this.loadTask();
-  }
+  // tooltip end
 
   loadTask(): void {
     this.taskService.getTasks().subscribe((data) => {
@@ -92,55 +101,50 @@ export class SalesLogTableComponent implements OnInit {
     if (option === 'edit') {
       this.openTaskForm(task);
     } else if (option === 'duplicate') {
-    
-          this.editFunc(task,false)
-      
+      this.editFunc(task, false);
     } else {
-        this.editFunc(task,true);
+      this.editFunc(task, true);
     }
   }
 
-  editFunc(task:any,change:boolean){
+  editFunc(task: any, change: boolean) {
     const docId = task._id;
-    if(change){
-      task.status = task.status === "Open" ? "Closed" : "Open";
+    if (change) {
+      task.status = task.status === 'Open' ? 'Closed' : 'Open';
     }
 
-    const {_id,updatedAt,createdAt,hour,minute,period,...sendToDb} = task;
+    const { _id, updatedAt, createdAt, hour, minute, period, ...sendToDb } =
+      task;
 
-      try {
-
-        if(change){
-          if(confirm("Do you want to change the status")){
-            this.taskService.updateTask(docId, sendToDb).subscribe({
-              next: (response) => {
-                console.log('Task updated');
-                this.loadTask(); 
-              },
-              error: (error) => {
-                console.error('Error updating task', error);
-              }
-            });
-          }
+    try {
+      if (change) {
+        if (confirm('Do you want to change the status')) {
+          this.taskService.updateTask(docId, sendToDb).subscribe({
+            next: (response) => {
+              console.log('Task updated');
+              this.loadTask();
+            },
+            error: (error) => {
+              console.error('Error updating task', error);
+            },
+          });
         }
-        else{
-          if(confirm('Do you want to duplicate the data')){
-            this.taskService.addTask(sendToDb).subscribe({
-              next: (response) => {
-                console.log('Task duplicated');
-                this.loadTask(); 
-              },
-              error: (error) => {
-                console.error('Error duplicaing task', error);
-              }
-            });
-          }
+      } else {
+        if (confirm('Do you want to duplicate the data')) {
+          this.taskService.addTask(sendToDb).subscribe({
+            next: (response) => {
+              console.log('Task duplicated');
+              this.loadTask();
+            },
+            error: (error) => {
+              console.error('Error duplicaing task', error);
+            },
+          });
         }
-
-      } catch (error) {
-        console.log(error)
       }
-
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   openTaskForm(task?: Task): void {
@@ -149,10 +153,10 @@ export class SalesLogTableComponent implements OnInit {
     });
 
     dialogRef.componentInstance.taskUpdated.subscribe(() => {
-      this.loadTask(); 
+      this.loadTask();
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       console.log('The dialog was closed');
     });
   }

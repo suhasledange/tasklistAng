@@ -1,1 +1,23 @@
-<p>tool-tip works!</p>
+<div class="absolute -left-52 top-5 z-10 bg-white border-gray-300 shadow-md shadow-slate-300 px-5 py-6 pt-2 mt-2"
+     *ngIf="visible"
+     [ngStyle]="{'top': top, 'left': left}"
+     >
+  <div>
+    <p class="uppercase font-medium py-4 pt-3">Status</p>
+  </div>
+  <div>
+    <button
+      class="px-8 py-2"
+      [ngClass]="{ 'bg-orange-500 text-white': status === 'Open', 'bg-gray-200': status !== 'Open' }"
+      
+    >
+      Open
+    </button>
+    <button
+      class="px-8 py-2"
+      [ngClass]="{ 'bg-orange-500 text-white': status === 'Closed', 'bg-gray-200': status !== 'Closed' }"
+    >
+      Closed
+    </button>
+  </div>
+</div>

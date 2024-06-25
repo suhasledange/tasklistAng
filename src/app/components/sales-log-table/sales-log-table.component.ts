@@ -13,6 +13,7 @@ import { Task, TaskDataService } from '../../services/task-data.service';
 import { DateformatPipe } from '../../pipes/dateformat.pipe';
 import { MatMenuModule } from '@angular/material/menu';
 import { TruncatePipe } from '../../pipes/truncate.pipe';
+import { ToolTipComponent } from '../tool-tip/tool-tip.component';
 
 @Component({
   selector: 'app-sales-log-table',
@@ -28,7 +29,8 @@ import { TruncatePipe } from '../../pipes/truncate.pipe';
     MatIconModule,
     FormsModule,
     DateformatPipe,
-    TruncatePipe
+    TruncatePipe,
+    ToolTipComponent
   ],
   templateUrl: './sales-log-table.component.html',
   styleUrls: ['./sales-log-table.component.css']
@@ -41,6 +43,30 @@ export class SalesLogTableComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   tasks: Task[] = [];
+
+// tooltip start
+
+  tooltipVisible = false;
+  tooltipTop = '0px';
+  tooltipLeft = '0px';
+  leftpos:number=-230;
+  status:string = ""
+  showTooltip(event: MouseEvent, task: any) {
+    this.tooltipVisible = true;
+    this.tooltipTop = `${event.clientY}px`;
+    this.leftpos +=event.clientX;
+    this.tooltipLeft = `${this.leftpos}px`;
+    this.status = task.status;
+  }
+
+  hideTooltip() {
+    this.tooltipVisible = false;
+    this.leftpos = -230;
+  }
+
+// tooltip end
+
+
 
   constructor(private dialog: MatDialog, private taskService: TaskDataService) { }
 

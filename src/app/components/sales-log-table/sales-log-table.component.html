@@ -67,9 +67,10 @@
             <div class="flex items-center justify-between gap-5 relative">
 
                 <span 
-                
+                (mouseenter)="showTooltip($event, task)"
+                 (mouseleave)="hideTooltip()"
                 [ngClass]="{'text-blue-700': task.status === 'Closed', 'text-red-700': task.status === 'Open'}"
-                class="decoration-dotted underline underline-offset-4">{{ task.status }}
+                class="cursor-pointer decoration-dotted underline underline-offset-4">{{ task.status }}
               
               </span> 
 
@@ -87,6 +88,7 @@
                 </mat-menu>
 
             </div>
+            <app-tool-tip [status]="status" [visible]="tooltipVisible" [top]="tooltipTop" [left]="tooltipLeft"></app-tool-tip>
           </td>
 
         </ng-container>

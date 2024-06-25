@@ -118,20 +118,22 @@ export class TaskFormComponent implements OnInit {
   }
 
    handleDelete(id:string):void {
-    this.delLoading = true;
-    this.taskDataService.deleteTask(id).subscribe({
-      next: (response) => {
-        console.log('Task deleted');
-        this.dialogRef.close({ action: 'delete' });
-        this.taskUpdated.emit();
-        this.delLoading = false;
-      },
-      error: (error) => {
-        console.error('Error deleting task', error);
-        this.delLoading = false;
-      }
-    });
-    
+
+    if(confirm('Do you want to delete ? ')){
+      this.delLoading = true;
+      this.taskDataService.deleteTask(id).subscribe({
+        next: (response) => {
+          console.log('Task deleted');
+          this.dialogRef.close({ action: 'delete' });
+          this.taskUpdated.emit();
+          this.delLoading = false;
+        },
+        error: (error) => {
+          console.error('Error deleting task', error);
+          this.delLoading = false;
+        }
+      }); 
+    }
   }
 
   onClose():void {

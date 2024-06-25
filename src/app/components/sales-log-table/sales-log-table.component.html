@@ -22,27 +22,27 @@
       </div>
 
       <!-- Table Header -->
-      <table mat-table [dataSource]="[]" matSort>
+      <table mat-table [dataSource]="[]" matSort >
           <ng-container matColumnDef="date">
-              <th class="text-gray-500" mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
+              <th class="text-gray-500 w-[7rem]" mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
           </ng-container>
           <ng-container matColumnDef="entityName">
-              <th class="text-gray-500" mat-header-cell *matHeaderCellDef mat-sort-header>Entity Name</th>
+              <th class="text-gray-500 w-[15rem]" mat-header-cell *matHeaderCellDef mat-sort-header>Entity Name</th>
           </ng-container>
           <ng-container matColumnDef="taskType">
-              <th class="whitespace-nowrap text-gray-500" mat-header-cell *matHeaderCellDef mat-sort-header>Task Type</th>
+              <th class="whitespace-nowrap text-gray-500 w-28" mat-header-cell *matHeaderCellDef mat-sort-header>Task Type</th>
           </ng-container>
           <ng-container matColumnDef="time">
-              <th class="text-gray-500" mat-header-cell *matHeaderCellDef mat-sort-header>Time</th>
+              <th class="text-gray-500 w-24" mat-header-cell *matHeaderCellDef mat-sort-header>Time</th>
           </ng-container>
           <ng-container matColumnDef="contactPerson">
-              <th class="whitespace-nowrap text-gray-500" mat-header-cell *matHeaderCellDef mat-sort-header>Contact Person</th>
+              <th class="whitespace-nowrap  w-[10rem] text-gray-500" mat-header-cell *matHeaderCellDef mat-sort-header>Contact Person</th>
           </ng-container>
           <ng-container matColumnDef="notes">
-              <th class="text-gray-500" mat-header-cell *matHeaderCellDef mat-sort-header>Notes</th>
+              <th class="text-gray-500 w-[20rem]" mat-header-cell *matHeaderCellDef mat-sort-header>Notes</th>
           </ng-container>
           <ng-container matColumnDef="status">
-              <th class="text-gray-500" mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+              <th class="text-gray-500 w-56" mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
           </ng-container>
 
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -50,21 +50,22 @@
 
       <!-- Grouped Tasks Rows -->
       <div *ngFor="let group of groupedTasks">
-          <div class="date-header flex justify-start items-center gap-3 px-4 text-sm">
-              <span class="text-gray-500">{{ group.dateLabel }}</span>
+          <div class="date-header flex justify-start items-center gap-3 px-4 text-[0.79rem]">
+            <span class="text-gray-800 font-bold">{{ group.taskDate | dateformat }}</span>
+            <span class="text-gray-500">{{ group.dateLabel }}</span>
               <span class="text-gray-500 ml-1">{{ group.openCount }} Open</span>
               <span class="flex-1 h-[1.3px] ml-3 pl-1 bg-gray-300"></span>
           </div>
           
           <table mat-table [dataSource]="group.tasks" matSort>
               <ng-container matColumnDef="date">
-                  <td mat-cell *matCellDef="let task">{{ task.createdAt | dateformat }}</td>
+                  <td class=" w-[7rem]" mat-cell *matCellDef="let task">{{ task.createdAt | dateformat }}</td>
               </ng-container>
               <ng-container matColumnDef="entityName">
-                  <td class="text-blue whitespace-break-spaces font-medium w-[15rem]" mat-cell *matCellDef="let task">{{ task.entityName }}</td>
+                  <td class="text-blue font-medium w-[15rem]" mat-cell *matCellDef="let task">{{ task.entityName }}</td>
               </ng-container>
               <ng-container matColumnDef="taskType">
-                  <td class="whitespace-nowrap" mat-cell *matCellDef="let task">
+                  <td class="whitespace-nowrap w-28" mat-cell *matCellDef="let task">
                       <span class="flex items-center justify-start gap-1">
                           <mat-icon class="text-[1.1rem] -mb-1 text-gray-700" *ngIf="task.taskType === 'Meeting'" fontIcon="place"></mat-icon>
                           <mat-icon class="text-[1.1rem] -mb-1 text-gray-700" *ngIf="task.taskType === 'Video Call'" fontIcon="videocam"></mat-icon>
@@ -74,7 +75,7 @@
                   </td>
               </ng-container>
               <ng-container matColumnDef="time">
-                  <td mat-cell *matCellDef="let task">{{ task.time }}</td>
+                  <td class="w-24" mat-cell *matCellDef="let task">{{ task.time }}</td>
               </ng-container>
               <ng-container matColumnDef="contactPerson">
                   <td class="w-[10rem]" mat-cell *matCellDef="let task">{{ task.contactPerson }}</td>
@@ -83,7 +84,7 @@
                   <td mat-cell *matCellDef="let task" class="whitespace-break-spaces w-[20rem]">{{ task.note | truncate:40 }}</td>
               </ng-container>
               <ng-container matColumnDef="status">
-                  <td class="" mat-cell *matCellDef="let task">
+                  <td class="w-56" mat-cell *matCellDef="let task">
                       <div class="flex items-center justify-between gap-5 relative">
                           <span (mouseenter)="showTooltip($event, task)" (mouseleave)="hideTooltip()" 
                               [ngClass]="{'text-blue-700': task.status === 'Closed', 'text-red-700': task.status === 'Open'}"

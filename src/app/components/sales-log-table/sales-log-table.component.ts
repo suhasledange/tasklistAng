@@ -95,7 +95,7 @@ export class SalesLogTableComponent implements OnInit {
 
   groupTasksByDate(): void {
     const today = new Date();
-    const grouped: { [key: string]: { dateLabel: string; tasks: Task[]; openCount: number } } = {};
+    const grouped: { [key: string]: { dateLabel: string; taskDate:string; tasks: Task[]; openCount: number } } = {};
 
     for (const task of this.tasks) {
       const taskDate = new Date(task.createdAt!);
@@ -116,7 +116,7 @@ export class SalesLogTableComponent implements OnInit {
       }
 
       if (!grouped[dateLabel]) {
-        grouped[dateLabel] = { dateLabel, tasks: [], openCount: 0 };
+        grouped[dateLabel] = { dateLabel, taskDate:task.createdAt ,tasks: [], openCount: 0 };
       }
 
       grouped[dateLabel].tasks.push(task);

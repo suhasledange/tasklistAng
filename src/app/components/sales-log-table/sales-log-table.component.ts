@@ -46,11 +46,12 @@ export class SalesLogTableComponent implements OnInit {
     'status',
   ];
   dataSource: MatTableDataSource<Task> = new MatTableDataSource();
+  groupedTasks: any[] = [];
 
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  tasks: Task[] = [];
+  tasks: any = [];
 
   constructor(
     private dialog: MatDialog,
@@ -62,12 +63,12 @@ export class SalesLogTableComponent implements OnInit {
   }
 
   // tooltip start
-
   tooltipVisible = false;
   tooltipTop = '0px';
   tooltipLeft = '0px';
   leftpos: number = -230;
   status: string = '';
+
   showTooltip(event: MouseEvent, task: any) {
     this.tooltipVisible = true;
     this.tooltipTop = `${event.clientY}px`;
@@ -80,7 +81,6 @@ export class SalesLogTableComponent implements OnInit {
     this.tooltipVisible = false;
     this.leftpos = -230;
   }
-
   // tooltip end
 
   loadTask(): void {
@@ -89,8 +89,45 @@ export class SalesLogTableComponent implements OnInit {
       this.dataSource.data = this.tasks;
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
+      this.groupTasksByDate();
     });
   }
+
+  groupTasksByDate(): void {
+    const today = new Date();
+    const grouped: { [key: string]: { dateLabel: string; tasks: Task[]; openCount: number } } = {};
+
+    for (const task of this.tasks) {
+      const taskDate = new Date(task.createdAt!);
+      const diffTime = taskDate.getTime() - today.getTime();
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      let dateLabel = '';
+
+      if (diffDays === 0) {
+        dateLabel = 'Today';
+      } else if (diffDays === 1) {
+        dateLabel = 'Tomorrow';
+      } else if (diffDays === -1) {
+        dateLabel = 'Yesterday';
+      } else if (diffDays > 1) {
+        dateLabel = `${diffDays} days from now`;
+      } else {
+        dateLabel = `${Math.abs(diffDays)} days ago`;
+      }
+
+      if (!grouped[dateLabel]) {
+        grouped[dateLabel] = { dateLabel, tasks: [], openCount: 0 };
+      }
+
+      grouped[dateLabel].tasks.push(task);
+      if (task.status === 'Open') {
+        grouped[dateLabel].openCount += 1;
+      }
+    }
+
+    this.groupedTasks = Object.values(grouped);
+  }
+
 
   applyFilter(event: Event): void {
     const filterValue = (event.target as HTMLInputElement).value;

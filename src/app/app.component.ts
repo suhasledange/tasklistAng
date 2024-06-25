@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SalesHeaderComponent } from './sales-header/sales-header.component';
-import { SalesLogTableComponent } from './sales-log-table/sales-log-table.component';
-import { Task, TaskDataService } from './services/task-data.service';
-
+import { SalesHeaderComponent } from './components/sales-header/sales-header.component';
+import { SalesLogTableComponent } from './components/sales-log-table/sales-log-table.component';
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -14,14 +12,4 @@ import { Task, TaskDataService } from './services/task-data.service';
 export class AppComponent {
   title = 'sales-log-app';
 
-  tasks:Task[]=[];
-
-  constructor(private taskService:TaskDataService){}
-
-  ngOnInit():void{
-    this.taskService.getTasks().subscribe((data)=>{
-      this.tasks = data.result;
-    })
-  }
-  
 }

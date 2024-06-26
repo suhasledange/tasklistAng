@@ -48,13 +48,13 @@ export class SalesLogTableComponent implements OnInit {
   ];
   dataSource: MatTableDataSource<Task> = new MatTableDataSource();
   groupedTasks: any[] = [];
+  tasks: any = [];
+  selectedTaskTypes: Set<string> = new Set();
 
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  tasks: any = [];
-  selectedTaskTypes: Set<string> = new Set();
-
+  
   constructor(
     private dialog: MatDialog,
     private taskService: TaskDataService
@@ -103,6 +103,11 @@ export class SalesLogTableComponent implements OnInit {
     const grouped: { [key: string]: { dateLabel: string; taskDate:string; tasks: Task[]; openCount: number } } = {};
 
     for (const task of filteredData) {
+
+      if (this.selectedTaskTypes.size > 0 && !this.selectedTaskTypes.has(task.taskType)) {
+        continue; 
+      }
+
       const taskDate = new Date(task.createdAt!);
       const diffTime = taskDate.getTime() - today.getTime();
       const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
@@ -134,6 +139,16 @@ export class SalesLogTableComponent implements OnInit {
     this.groupedTasks = Object.values(grouped);
 
   }
+
+  onTaskTypeChange(taskType: string, event: any): void {
+    if ((event.target as HTMLInputElement).checked) {
+      this.selectedTaskTypes.add(taskType);
+    } else {
+      this.selectedTaskTypes.delete(taskType);
+    }
+    this.groupTasksByDate();
+  }
+
 
   applyFilter(event: Event): void {
     const filterValue = (event.target as HTMLInputElement).value;

@@ -39,18 +39,19 @@
                         <div mat-dialog-content class="flex font-normal flex-col items-center justify-start text-left p-2 px-3">
                           <span class="mb-3 uppercase font-medium border-b w-full pb-2">Task Type</span>
                           <div class="flex flex-col items-start justify-start gap-3 px-1">
-                            <div>
-                              <input type="checkbox" id="meeting"  />
-                              <label class="ml-2" for="meeting">Meeting</label>
+                            <div class="flex items-center justify-start">
+                                <input (change)="onTaskTypeChange('Call',$event)" type="checkbox" id="call"  />
+                                <label class="ml-3 flex items-center justify-start" for="call"> <mat-icon fontIcon="call" class="text-sm mt-1"></mat-icon> Call</label>
                             </div>
-                            <div>
-                              <input type="checkbox" id="videoCall"  />
-                              <label class="ml-2" for="videoCall">Video Call</label>
+                            <div class="flex items-center justify-start">
+                                <input (change)="onTaskTypeChange('Meeting',$event)" type="checkbox" id="meeting"  />
+                                <label class="ml-3 flex items-center justify-start" for="meeting"> <mat-icon fontIcon="place" class="text-sm mt-1"></mat-icon> Meeting</label>
                             </div>
-                            <div>
-                              <input type="checkbox" id="call"  />
-                              <label class="ml-2" for="call">Call</label>
+                            <div class="flex items-center justify-start">
+                                <input (change)="onTaskTypeChange('Video Call',$event)" type="checkbox" id="videocall"  />
+                                <label class="ml-3 flex items-center justify-start" for="videocall"> <mat-icon fontIcon="videocam" class="text-sm mt-1"></mat-icon> Call</label>
                             </div>
+
                           </div>
                         </div>
                       </mat-menu>  

@@ -35,9 +35,9 @@
                     <span mat-button [matMenuTriggerFor]="menu" #menuTrigger class="cursor-pointer bg-transparent p-1 px-3 flex items-center justify-center">
                         <mat-icon class="text-gray-500 text-[1.2rem] mt-1 bg-transparent" fontIcon="filter_alt"></mat-icon>
                     </span>
-                    <mat-menu xPosition="after" #menu="matMenu">
-                        <div mat-dialog-content class="flex font-normal flex-col items-center justify-start text-left p-2 px-3">
-                          <span class="mb-3 uppercase font-medium border-b w-full pb-2">Task Type</span>
+                    <mat-menu xPosition="after" #menu="matMenu" class="my-class">
+                        <div mat-dialog-content class="flex font-normal flex-col items-center justify-start text-left p-2 px-4">
+                          <span class="mb-3 uppercase text-gray-700  font-medium border-b w-full pb-2">Task Type</span>
                           <div class="flex flex-col items-start justify-start gap-3 px-1">
                             <div class="flex items-center justify-start">
                                 <input (change)="onTaskTypeChange('Call',$event)" type="checkbox" id="call"  />
@@ -132,7 +132,7 @@
                                 Options
                                 <mat-icon class="text-gray-700" fontIcon="expand_more"></mat-icon>
                             </span>
-                            <mat-menu xPosition="before" #menu="matMenu">
+                            <mat-menu xPosition="before" #menu="matMenu" class="my-class">
                                 <div mat-dialog-content class="flex font-normal flex-col items-center justify-start text-left p-2 px-3">
                                     <span class="mb-3 uppercase font-medium border-b w-full pb-2">Options</span>
                                     <div class="flex flex-col items-start justify-start gap-3 px-1">

@@ -29,6 +29,7 @@
     transform: translateY(0px) !important;
   }
 
-  ::ng-deep .menu-primary.mdc-menu-surface{
-    background-color: var(--mdc-theme-surface,#fff);
+
+  ::ng-deep .mat-mdc-menu-panel.my-class {
+    background-color: white;
   }

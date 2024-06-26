@@ -49,14 +49,14 @@
     <div class="mb-4">
       <textarea placeholder="Notes (optional)" class="mt-1 resize-none block w-full rounded-md shadow-sm focus:ring-indigo-500 outline-none bg-gray-100 p-4 focus:border-indigo-500 sm:text-sm" formControlName="note" cols="5" rows="4"></textarea>
     </div>
-    <div class="flex justify-between">
+    <div class="flex justify-between md:gap-0 gap-2">
       <div>
-        <button *ngIf="initialTask._id" type="button" (click)="handleDelete(initialTask._id)" class=" px-5 py-2 active:scale-95 bg-red-600 text-white rounded-sm flex items-center justify-center gap-2">Delete
+        <button *ngIf="initialTask._id" type="button" (click)="handleDelete(initialTask._id)" class=" md:px-5 px-2 py-2 active:scale-95 bg-red-600 text-white rounded-sm flex items-center justify-center gap-2">Delete
           <mat-spinner *ngIf="delLoading" color="warn"  diameter="20"></mat-spinner>
         </button>
       </div>
-      <div class="flex items-center">
-        <button (click)="onClose()" type="button" class="mr-4 border border-slate-500 px-5 py-2 rounded-sm">Cancel</button>
+      <div class="flex items-center md:justify-end gap-2 justify-between">
+        <button (click)="onClose()" type="button" class="md:mr-4 border border-slate-500 px-2 md:px-5 py-2 rounded-sm">Cancel</button>
         <button type="submit" class="px-5 py-2 active:scale-95 bg-[#004b6e] flex items-center justify-center gap-2 text-white rounded-sm">Save
           <mat-spinner *ngIf="loading" diameter="20"></mat-spinner>
         </button>

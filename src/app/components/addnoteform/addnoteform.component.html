@@ -6,7 +6,7 @@
     <form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
       <div class="mb-4">
         <textarea placeholder="Note" class="mt-1 resize-none block w-full rounded-md shadow-sm focus:ring-indigo-500 outline-none bg-gray-100 p-4 focus:border-indigo-500 sm:text-sm" formControlName="note" cols="5" rows="4"></textarea>
-        <div *ngIf="taskForm.get('contactPerson')?.invalid && taskForm.get('note')?.touched" class="text-red-500 text-sm mt-1">Note is required.</div>  
+        <div *ngIf="taskForm.get('note')?.invalid && taskForm.get('note')?.touched" class="text-red-500 text-sm mt-1">Note is required.</div>  
     
     </div>
       <div class="flex justify-between">

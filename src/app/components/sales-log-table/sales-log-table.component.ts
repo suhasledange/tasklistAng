@@ -207,16 +207,13 @@ export class SalesLogTableComponent implements OnInit {
 
   editFunc(task: any, change: boolean) {
     const docId = task._id;
-    if (change) {
-      task.status = task.status === 'Open' ? 'Closed' : 'Open';
-    }
-
-    const { _id, updatedAt, createdAt, hour, minute, period, ...sendToDb } =
-      task;
-
+  
     try {
       if (change) {
         if (confirm('Do you want to change the status')) {
+          task.status = task.status === 'Open' ? 'Closed' : 'Open';
+          const { _id, updatedAt, createdAt, hour, minute, period, ...sendToDb } =
+      task;
           this.taskService.updateTask(docId, sendToDb).subscribe({
             next: (response) => {
               console.log('Task updated');
@@ -229,6 +226,8 @@ export class SalesLogTableComponent implements OnInit {
         }
       } else {
         if (confirm('Do you want to duplicate the data')) {
+          const { _id, updatedAt, createdAt, hour, minute, period, ...sendToDb } =
+      task;
           this.taskService.addTask(sendToDb).subscribe({
             next: (response) => {
               console.log('Task duplicated');

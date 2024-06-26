@@ -135,13 +135,11 @@ export class SalesLogTableComponent implements OnInit {
 
   }
 
-
   applyFilter(event: Event): void {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
     this.groupTasksByDate();
   }
-
 
   onOptionEdit(task: Task, option: string): void {
     if (option === 'edit') {

@@ -1,4 +1,4 @@
-<div class="p-8 mx-auto md:space-y-3">
+<div class="md:p-8 p-4 mx-auto md:space-y-3">
   <div class="flex items-center gap-5 justify-between mb-6 md:mb-10">
     <span class="uppercase md:text-lg text-md font-semibold tracking-wider text-black">{{initialTask ? "Edit Task" : "New Task"}}</span>
     <div class="flex justify-end">
@@ -8,28 +8,28 @@
   </div>
   <form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
     <div class="mb-4">
-      <input type="text" placeholder="Entity name" class="mt-1 block w-full rounded-md shadow-sm focus:ring-indigo-500 outline-none bg-gray-100 p-4 focus:border-indigo-500 sm:text-sm" formControlName="entityName">
+      <input type="text" placeholder="Entity name" class="mt-1 block w-full rounded-md shadow-sm focus:ring-indigo-500 outline-none bg-gray-100 p-3 md:p-4 focus:border-indigo-500 sm:text-sm" formControlName="entityName">
       <div *ngIf="taskForm.get('entityName')?.invalid && taskForm.get('entityName')?.touched" class="text-red-500 text-sm mt-1">Entity name is required.</div>
     </div>
     <div class="mb-4 flex md:flex-row flex-col items-center justify-between gap-2">
-      <input type="date" placeholder="Date" class="mt-1 w-full block rounded-md shadow-sm focus:ring-indigo-500 outline-none bg-gray-100 p-4 focus:border-indigo-500 sm:text-sm" formControlName="date">
+      <input type="date" placeholder="Date" class="mt-1 w-full block rounded-md shadow-sm focus:ring-indigo-500 outline-none bg-gray-100 p-3 md:p-4 focus:border-indigo-500 sm:text-sm" formControlName="date">
       <div *ngIf="taskForm.get('date')?.invalid && taskForm.get('date')?.touched" class="text-red-500 text-sm mt-1">Date is required.</div>
 
      <div class="flex w-full">
-        <select class="mt-1 md:w-auto w-full rounded-l-md outline-none bg-gray-100 p-4 sm:text-sm" formControlName="hour">
+        <select class="mt-1 md:w-auto w-full rounded-l-md outline-none bg-gray-100 p-3 md:p-4 sm:text-sm" formControlName="hour">
           <option *ngFor="let h of hours" [value]="h">{{ h }}</option>
         </select>
-        <select class="mt-1 md:w-auto w-full outline-none bg-gray-100 p-4 sm:text-sm" formControlName="minute">
+        <select class="mt-1 md:w-auto w-full outline-none bg-gray-100 p-3 md:p-4 sm:text-sm" formControlName="minute">
           <option *ngFor="let m of minutes" [value]="m">{{ m }}</option>
         </select>
-        <select class="mt-1 md:w-auto w-full rounded-r-md shadow-sm outline-none bg-gray-100 p-4 sm:text-sm" formControlName="period">
+        <select class="mt-1 md:w-auto w-full rounded-r-md shadow-sm outline-none bg-gray-100 p-3 md:p-4 sm:text-sm" formControlName="period">
           <option *ngFor="let p of periods" [value]="p">{{ p }}</option>
         </select>
       </div>
 
     </div>
     <div class="mb-4">
-      <select class="mt-1 block w-full rounded-md shadow-sm focus:ring-indigo-500 outline-none bg-gray-100 p-4 focus:border-indigo-500 sm:text-sm" formControlName="taskType">
+      <select class="mt-1 block w-full rounded-md shadow-sm focus:ring-indigo-500 outline-none bg-gray-100 p-3 md:p-4 focus:border-indigo-500 sm:text-sm" formControlName="taskType">
         <option value="Call">Call</option>
         <option value="Meeting">Meeting</option>
         <option value="Video Call">Video Call</option>
@@ -37,17 +37,17 @@
     </div>
 
     <div class="mb-4">
-      <input type="tel" placeholder="Phone number" class="mt-1 block w-full rounded-md shadow-sm focus:ring-indigo-500 outline-none bg-gray-100 p-4 focus:border-indigo-500 sm:text-sm" formControlName="phoneNumber">
+      <input type="tel" placeholder="Phone number" class="mt-1 block w-full rounded-md shadow-sm focus:ring-indigo-500 outline-none bg-gray-100 p-3 md:p-4 focus:border-indigo-500 sm:text-sm" formControlName="phoneNumber">
       <div *ngIf="taskForm.get('phoneNumber')?.invalid && taskForm.get('phoneNumber')?.touched" class="text-red-500 text-sm mt-1">Phone number must be 10 digits</div>
     </div>
     
     <div class="mb-4">
-      <input type="text" placeholder="Contact person" class="mt-1 block w-full rounded-md shadow-sm focus:ring-indigo-500 outline-none bg-gray-100 p-4 focus:border-indigo-500 sm:text-sm" formControlName="contactPerson">
+      <input type="text" placeholder="Contact person" class="mt-1 block w-full rounded-md shadow-sm focus:ring-indigo-500 outline-none bg-gray-100 p-3 md:p-4 focus:border-indigo-500 sm:text-sm" formControlName="contactPerson">
       <div *ngIf="taskForm.get('contactPerson')?.invalid && taskForm.get('contactPerson')?.touched" class="text-red-500 text-sm mt-1">Contact person is required.</div>
     </div>
 
     <div class="mb-4">
-      <textarea placeholder="Notes (optional)" class="mt-1 resize-none block w-full rounded-md shadow-sm focus:ring-indigo-500 outline-none bg-gray-100 p-4 focus:border-indigo-500 sm:text-sm" formControlName="note" cols="5" rows="4"></textarea>
+      <textarea placeholder="Notes (optional)" class="mt-1 resize-none block w-full rounded-md shadow-sm focus:ring-indigo-500 outline-none bg-gray-100 p-3 md:p-4 focus:border-indigo-500 sm:text-sm" formControlName="note" cols="5" rows="4"></textarea>
     </div>
     <div class="flex justify-between md:gap-0 gap-2">
       <div>

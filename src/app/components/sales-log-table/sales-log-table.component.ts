@@ -100,7 +100,7 @@ export class SalesLogTableComponent implements OnInit {
     for (const task of this.tasks) {
       const taskDate = new Date(task.createdAt!);
       const diffTime = taskDate.getTime() - today.getTime();
-      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24));
       let dateLabel = '';
 
       if (diffDays === 0) {
@@ -113,6 +113,7 @@ export class SalesLogTableComponent implements OnInit {
         dateLabel = `${diffDays} days from now`;
       } else {
         dateLabel = `${Math.abs(diffDays)} days ago`;
+
       }
 
       if (!grouped[dateLabel]) {

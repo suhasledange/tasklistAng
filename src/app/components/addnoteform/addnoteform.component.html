@@ -1,0 +1,24 @@
+<div class="p-8 mx-auto space-y-3 w-[28rem]">
+    <div class="flex items-center justify-between mb-10">
+      <span class="uppercase text-lg font-semibold tracking-wider text-black">Add Note</span>
+      
+    </div>
+    <form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
+      <div class="mb-4">
+        <textarea placeholder="Note" class="mt-1 resize-none block w-full rounded-md shadow-sm focus:ring-indigo-500 outline-none bg-gray-100 p-4 focus:border-indigo-500 sm:text-sm" formControlName="note" cols="5" rows="4"></textarea>
+        <div *ngIf="taskForm.get('contactPerson')?.invalid && taskForm.get('note')?.touched" class="text-red-500 text-sm mt-1">Note is required.</div>  
+    
+    </div>
+      <div class="flex justify-between">
+        <div>
+        </div>
+        <div class="flex items-center">
+          <button (click)="onClose()" type="button" class="mr-4 border border-slate-500 px-5 py-2 rounded-sm">Cancel</button>
+          <button type="submit" class="px-5 py-2 active:scale-95 bg-[#004b6e] flex items-center justify-center gap-2 text-white rounded-sm">Save
+            <mat-spinner *ngIf="loading" diameter="20"></mat-spinner>
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+  

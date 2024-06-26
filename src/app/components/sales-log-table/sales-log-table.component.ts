@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit,Component, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatSort, MatSortModule } from '@angular/material/sort';
@@ -14,6 +14,7 @@ import { DateformatPipe } from '../../pipes/dateformat.pipe';
 import { MatMenuModule } from '@angular/material/menu';
 import { TruncatePipe } from '../../pipes/truncate.pipe';
 import { ToolTipComponent } from '../tool-tip/tool-tip.component';
+import { AddNoteFormComponent } from '../addnoteform/addnoteform.component';
 
 @Component({
   selector: 'app-sales-log-table',
@@ -52,6 +53,7 @@ export class SalesLogTableComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   tasks: any = [];
+  selectedTaskTypes: Set<string> = new Set();
 
   constructor(
     private dialog: MatDialog,
@@ -94,13 +96,17 @@ export class SalesLogTableComponent implements OnInit {
   }
 
   groupTasksByDate(): void {
+
+    const filteredData = this.dataSource.filteredData;
+
     const today = new Date();
     const grouped: { [key: string]: { dateLabel: string; taskDate:string; tasks: Task[]; openCount: number } } = {};
 
-    for (const task of this.tasks) {
+    for (const task of filteredData) {
       const taskDate = new Date(task.createdAt!);
       const diffTime = taskDate.getTime() - today.getTime();
-      const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24));
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      console.log(diffDays)
       let dateLabel = '';
 
       if (diffDays === 0) {
@@ -113,11 +119,10 @@ export class SalesLogTableComponent implements OnInit {
         dateLabel = `${diffDays} days from now`;
       } else {
         dateLabel = `${Math.abs(diffDays)} days ago`;
-
       }
 
       if (!grouped[dateLabel]) {
-        grouped[dateLabel] = { dateLabel, taskDate:task.createdAt ,tasks: [], openCount: 0 };
+        grouped[dateLabel] = { dateLabel, taskDate:task.createdAt! ,tasks: [], openCount: 0 };
       }
 
       grouped[dateLabel].tasks.push(task);
@@ -127,13 +132,16 @@ export class SalesLogTableComponent implements OnInit {
     }
 
     this.groupedTasks = Object.values(grouped);
+
   }
 
 
   applyFilter(event: Event): void {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
+    this.groupTasksByDate();
   }
+
 
   onOptionEdit(task: Task, option: string): void {
     if (option === 'edit') {
@@ -187,6 +195,21 @@ export class SalesLogTableComponent implements OnInit {
 
   openTaskForm(task?: Task): void {
     const dialogRef = this.dialog.open(TaskFormComponent, {
+      data: task,
+    });
+
+    dialogRef.componentInstance.taskUpdated.subscribe(() => {
+      this.loadTask();
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('The dialog was closed');
+    });
+  }
+
+
+  openAddNoteForm(task?:Task):void{
+    const dialogRef = this.dialog.open(AddNoteFormComponent, {
       data: task,
     });
 

@@ -6,10 +6,12 @@
 .table-container th {
     border: none;
     font-size: 0.9rem;
+    background-color: white;
 }
 
 .table-container td {
     border: none;
+    background-color: white;
 }
 
 
@@ -22,3 +24,11 @@
     table-layout: fixed;
 }
 
+::ng-deep .mat-sort-header-container:not(.mat-sort-header-sorted) .mat-sort-header-arrow {
+    opacity: 0.54 !important;
+    transform: translateY(0px) !important;
+  }
+
+  ::ng-deep .menu-primary.mdc-menu-surface{
+    background-color: var(--mdc-theme-surface,#fff);
+  }

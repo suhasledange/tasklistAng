@@ -22,7 +22,7 @@
         </div>
   
         <!-- Table Header -->
-        <table mat-table [dataSource]="[]" matSort class="responsive-table">
+        <table mat-table [dataSource]="dataSource" matSort class="responsive-table">
             <ng-container matColumnDef="date">
                 <th class="text-gray-500 w-[120px]" mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
             </ng-container>
@@ -30,7 +30,31 @@
                 <th class="text-gray-500 w-[250px]" mat-header-cell *matHeaderCellDef mat-sort-header>Entity Name</th>
             </ng-container>
             <ng-container matColumnDef="taskType">
-                <th class="whitespace-nowrap text-gray-500  w-[130px]" mat-header-cell *matHeaderCellDef mat-sort-header>Task Type</th>
+                <th class="whitespace-nowrap text-gray-500   w-[130px]" mat-header-cell *matHeaderCellDef mat-sort-header>Task Type
+
+                    <span mat-button [matMenuTriggerFor]="menu" #menuTrigger class="cursor-pointer bg-transparent p-1 px-3 flex items-center justify-center">
+                        <mat-icon class="text-gray-500 text-[1.2rem] mt-1 bg-transparent" fontIcon="filter_alt"></mat-icon>
+                    </span>
+                    <mat-menu xPosition="after" #menu="matMenu">
+                        <div mat-dialog-content class="flex font-normal flex-col items-center justify-start text-left p-2 px-3">
+                          <span class="mb-3 uppercase font-medium border-b w-full pb-2">Task Type</span>
+                          <div class="flex flex-col items-start justify-start gap-3 px-1">
+                            <div>
+                              <input type="checkbox" id="meeting"  />
+                              <label class="ml-2" for="meeting">Meeting</label>
+                            </div>
+                            <div>
+                              <input type="checkbox" id="videoCall"  />
+                              <label class="ml-2" for="videoCall">Video Call</label>
+                            </div>
+                            <div>
+                              <input type="checkbox" id="call"  />
+                              <label class="ml-2" for="call">Call</label>
+                            </div>
+                          </div>
+                        </div>
+                      </mat-menu>  
+                </th>
             </ng-container>
             <ng-container matColumnDef="time">
                 <th class="text-gray-500 w-[120px]" mat-header-cell *matHeaderCellDef mat-sort-header>Time</th>
@@ -81,7 +105,20 @@
                     <td class="w-[180px]" mat-cell *matCellDef="let task">{{ task.contactPerson }}</td>
                 </ng-container>
                 <ng-container matColumnDef="notes">
-                    <td class="w-[250px]" mat-cell *matCellDef="let task">{{ task.note | truncate:40 }}</td>
+                    
+                    <td class="w-[250px]" mat-cell *matCellDef="let task">
+                        @if (task.note ==="") {
+                            <button (click)="openAddNoteForm(task)" class="active:scale-95 text-blue border-2 text-xs font-medium border-gray-500 px-2 flex items-center justify-center">
+                                <mat-icon class="text-[1.1rem] text-blue/[0.9] mt-[0.29rem]" fontIcon="add"></mat-icon> Add Note
+                            </button>
+                        }
+                        @else {
+                            
+                            {{ task.note | truncate:40 }}
+                        }
+                            
+                    </td>
+
                 </ng-container>
                 <ng-container matColumnDef="status">
                     <td class="w-[200px]" mat-cell *matCellDef="let task">

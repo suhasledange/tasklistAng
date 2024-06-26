@@ -50,6 +50,10 @@ export class SalesLogTableComponent implements OnInit {
   groupedTasks: any[] = [];
   tasks: any = [];
   selectedTaskTypes: Set<string> = new Set();
+  selectedStatus: Set<string> = new Set();
+  onSearch:string=""
+  onContact:string=""
+  onNotes:string=""
 
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -107,11 +111,22 @@ export class SalesLogTableComponent implements OnInit {
       if (this.selectedTaskTypes.size > 0 && !this.selectedTaskTypes.has(task.taskType)) {
         continue; 
       }
+      if (this.selectedStatus.size > 0 && !this.selectedStatus.has(task.status)) {
+        continue; 
+      }
+      if (this.onSearch != "" && !task.entityName.toLowerCase().includes(this.onSearch)) {
+        continue; 
+      }
+      if (this.onContact != "" && !task.contactPerson.toLowerCase().includes(this.onContact)) {
+        continue; 
+      }
+      if (this.onNotes != "" && !task.note.toLowerCase().includes(this.onNotes)) {
+        continue; 
+      }
 
       const taskDate = new Date(task.createdAt!);
       const diffTime = taskDate.getTime() - today.getTime();
       const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-      console.log(diffDays)
       let dateLabel = '';
 
       if (diffDays === 0) {
@@ -148,6 +163,30 @@ export class SalesLogTableComponent implements OnInit {
     }
     this.groupTasksByDate();
   }
+
+  onStatusChange(status: string, event: any): void {
+    if ((event.target as HTMLInputElement).checked) {
+      this.selectedStatus.add(status);
+    } else {
+      this.selectedStatus.delete(status);
+    }
+    this.groupTasksByDate();
+  }
+
+  onEntitySearch(event:any){
+   this.onSearch = (event.target as HTMLInputElement).value.toLowerCase()
+    this.groupTasksByDate();
+  }
+
+  onContactSearch(event:any){
+    this.onContact = (event.target as HTMLInputElement).value.toLowerCase()
+     this.groupTasksByDate();
+   }
+
+   onNotesSearch(event:any){
+    this.onNotes = (event.target as HTMLInputElement).value.toLowerCase()
+     this.groupTasksByDate();
+   }
 
 
   applyFilter(event: Event): void {

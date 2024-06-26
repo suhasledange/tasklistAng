@@ -49,7 +49,6 @@ export class TaskFormComponent implements OnInit {
   ) {
     this.initialTask = data || { status: 'Open' };
 
-    console.log(this.initialTask)
   }
 
   ngOnInit(): void {

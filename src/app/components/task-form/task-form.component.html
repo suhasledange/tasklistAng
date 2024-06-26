@@ -1,6 +1,6 @@
-<div class="p-8 mx-auto space-y-3 w-[28rem]">
-  <div class="flex items-center justify-between mb-10">
-    <span class="uppercase text-lg font-semibold tracking-wider text-black">{{initialTask ? "Edit Task" : "New Task"}}</span>
+<div class="p-8 mx-auto space-y-3 ">
+  <div class="flex items-center gap-5 justify-between mb-10">
+    <span class="uppercase md:text-lg text-md font-semibold tracking-wider text-black">{{initialTask ? "Edit Task" : "New Task"}}</span>
     <div class="flex justify-end">
       <button class="px-4 py-2" [ngClass]="taskForm.value.status === 'Open' ? 'bg-orange-500 text-white' : 'bg-gray-200'" (click)="handleStatusChange('Open')">Open</button>
       <button class="px-4 py-2" [ngClass]="taskForm.value.status === 'Closed' ? 'bg-orange-500 text-white' : 'bg-gray-200'" (click)="handleStatusChange('Closed')">Closed</button>

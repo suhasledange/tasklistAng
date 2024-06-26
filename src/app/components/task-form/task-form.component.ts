@@ -48,6 +48,8 @@ export class TaskFormComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     this.initialTask = data || { status: 'Open' };
+
+    console.log(this.initialTask)
   }
 
   ngOnInit(): void {
